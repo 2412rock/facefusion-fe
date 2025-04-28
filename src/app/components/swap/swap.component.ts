@@ -1,16 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule, HttpEventType } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, HttpEventType } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CredentialsHttpInterceptor } from '../../interceptor/http-interceptor';
 
 @Component({
   selector: 'app-swap',
   standalone: true,
   imports: [HttpClientModule, CommonModule, MatProgressBarModule, MatProgressSpinnerModule],
   templateUrl: './swap.component.html',
-  styleUrl: './swap.component.scss'
+  styleUrl: './swap.component.scss',
+
 })
 export class SwapComponent {
   sourceImage: File | null = null;
