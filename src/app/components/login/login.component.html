@@ -1,0 +1,35 @@
+<div class="login-container">
+    <h2>{{ isRegistering ? 'Register for FaceFusion' : 'Login to FaceFusion' }}</h2>
+  
+    <form (submit)="isRegistering ? register() : login()" class="login-form">
+      <div class="form-group">
+        <input type="email" placeholder="Email" [(ngModel)]="email" name="email" required />
+      </div>
+  
+      <div class="form-group">
+        <input type="password" placeholder="Password" [(ngModel)]="password" name="password" required />
+      </div>
+  
+      <div *ngIf="isRegistering" class="form-group">
+        <input type="password" placeholder="Confirm Password" [(ngModel)]="confirmPassword" name="confirmPassword" required />
+      </div>
+  
+      <button type="submit" [disabled]="loading">
+        {{ loading ? (isRegistering ? 'Registering...' : 'Logging in...') : (isRegistering ? 'Register' : 'Login') }}
+      </button>
+    </form>
+  
+    <div class="switch-form">
+      <span>
+        {{ isRegistering ? 'Already have an account?' : 'Don\'t have an account?' }}
+      </span>
+      <button class="switch-button" (click)="toggleForm()" [disabled]="loading">
+        {{ isRegistering ? 'Login' : 'Register' }}
+      </button>
+    </div>
+  
+    <div *ngIf="loading" class="loading-spinner">
+      <!-- Optional mat-spinner or custom spinner here -->
+    </div>
+  </div>
+  

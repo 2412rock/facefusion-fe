@@ -1,0 +1,119 @@
+
+  
+.container {
+    background-color: #111;
+   // width: 100vw;
+    min-height: 100vh;
+    padding: 20px;
+    text-align: center;
+    box-sizing: border-box;
+    overflow-x: hidden; /* 👈 prevents any accidental horizontal scrolling */
+    overflow-y: auto; /* 👈 allows scroll if content is taller than screen */
+  }
+  .upload-area {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  
+  .upload-block {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 12px;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(255,255,255,0.05);
+  }
+  
+  .upload-label {
+    display: block;
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .preview img,
+  .preview video {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  }
+  
+  .button-section {
+    margin-top: 40px;
+  }
+  
+  button {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    border: none;
+    padding: 14px 40px;
+    border-radius: 8px;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  
+  button:hover {
+    background: linear-gradient(135deg, #818cf8, #6366f1);
+  }
+  
+  button:disabled {
+    background: #555;
+    cursor: not-allowed;
+  }
+  
+  .progress-section {
+    margin-top: 40px;
+  }
+  
+  .progress-text {
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+  
+  .result-section {
+    margin-top: 50px;
+  }
+  
+  .subtitle {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #ffffff;
+  }
+  
+  mat-progress-bar {
+    background-color: #333;
+    height: 8px;
+    border-radius: 4px;
+  }
+  
+  .output-video {
+    width: 90%;
+    max-width: 480px;
+    height: auto;
+    max-height: 70vh; /* 👈 limit height to 70% of the viewport */
+    border-radius: 12px;
+    margin-top: 20px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
+    object-fit: contain; /* 👈 ensures nice scaling */
+  }
+  .loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+  }
+  
+  .loading-text {
+    margin-top: 12px;
+    font-size: 18px;
+    color: #cccccc;
+  }
