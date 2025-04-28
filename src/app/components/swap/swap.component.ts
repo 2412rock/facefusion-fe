@@ -5,6 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CredentialsHttpInterceptor } from '../../interceptor/http-interceptor';
+import { UrlService } from '../../services/url.service';
 
 @Component({
   selector: 'app-swap',
@@ -25,7 +26,7 @@ export class SwapComponent {
   sourceImagePreview: string | null = null;  // Preview URL for the source image
   targetVideoPreview: string | null = null;  // Preview URL for the target video
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private url: UrlService) {}
 
   onSourceImageSelected(event: any) {
     this.sourceImage = event.target.files[0];
@@ -60,7 +61,7 @@ export class SwapComponent {
     this.uploadProgress = 0;
     this.processingProgress = 0;
 
-    this.http.post('http://localhost:5500/api/swap-face', formData, {
+    this.http.post(`${this.url.getHttpBaseUrl()}/api/swap-face`, formData, {
       responseType: 'blob',
       reportProgress: true,
       observe: 'events'
