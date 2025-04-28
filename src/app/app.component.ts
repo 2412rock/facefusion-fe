@@ -3,11 +3,12 @@ import { HttpClient, HttpClientModule, HttpEventType } from '@angular/common/htt
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HttpClientModule, CommonModule, MatProgressBarModule],
+  imports: [HttpClientModule, CommonModule, MatProgressBarModule, MatProgressSpinnerModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

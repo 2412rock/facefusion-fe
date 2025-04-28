@@ -1,49 +1,41 @@
-<div style="text-align:center; margin-top: 40px;">
-  <h2>Face Swap with FaceFusion</h2>
+<div class="container">
 
-  <!-- Image Upload -->
-  <div style="margin: 20px;">
-    <input type="file" accept="image/*" (change)="onSourceImageSelected($event)" />
+  <div class="upload-area">
+    <div class="upload-block">
+      <label class="upload-label">
+        <span>Select Source Image</span>
+        <input type="file" accept="image/*" (change)="onSourceImageSelected($event)" hidden />
+      </label>
+      <div *ngIf="sourceImagePreview" class="preview">
+        <img [src]="sourceImagePreview" alt="Source Image Preview" />
+      </div>
+    </div>
+
+    <div class="upload-block">
+      <label class="upload-label">
+        <span>Select Target Video</span>
+        <input type="file" accept="video/*" (change)="onTargetVideoSelected($event)" hidden />
+      </label>
+      <div *ngIf="targetVideoPreview" class="preview">
+        <video controls [src]="targetVideoPreview"></video>
+      </div>
+    </div>
   </div>
 
-  <!-- Image Preview -->
-  <div *ngIf="sourceImage" style="margin-top: 20px;">
-    <h4>Selected Source Image:</h4>
-    <img [src]="sourceImagePreview" alt="Source Image" width="200" />
-  </div>
-
-  <!-- Video Upload -->
-  <div style="margin: 20px;">
-    <input type="file" accept="video/*" (change)="onTargetVideoSelected($event)" />
-  </div>
-
-  <!-- Video Preview -->
-  <div *ngIf="targetVideo" style="margin-top: 20px;">
-    <h4>Selected Target Video:</h4>
-    <video width="300" controls [src]="targetVideoPreview"></video>
-  </div>
-
-  <div style="margin: 20px;">
+  <div class="button-section">
     <button (click)="submit()" [disabled]="loading">
       {{ loading ? 'Processing...' : 'Swap Face' }}
     </button>
   </div>
 
-  <!-- Upload Progress Bar -->
-  <div *ngIf="loading" style="margin-top: 20px;">
-    <div>Uploading... {{ uploadProgress }}%</div>
-    <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+  <div *ngIf="loading" class="progress-section">
+    <div *ngIf="uploadProgress < 100" class="progress-text">Uploading... {{ uploadProgress }}%</div>
+    <mat-progress-spinner mode="indeterminate" diameter="60" color="primary">
+    </mat-progress-spinner>
   </div>
 
-  <!-- Video Processing Progress Bar -->
-  <div *ngIf="loading && uploadProgress === 100" style="margin-top: 20px;">
-    <div>Processing Video... {{ processingProgress }}%</div>
-    <mat-progress-bar mode="determinate" [value]="processingProgress"></mat-progress-bar>
-  </div>
-
-  <!-- Display Result Video -->
-  <div *ngIf="outputVideoUrl" style="margin-top: 30px;">
-    <h3>Result:</h3>
-    <video width="640" controls [src]="outputVideoUrl"></video>
+  <div *ngIf="outputVideoUrl" class="result-section">
+    <h2 class="subtitle">Result</h2>
+    <video class="output-video" controls [src]="outputVideoUrl"></video>
   </div>
 </div>
