@@ -6,8 +6,11 @@
     </div>
     <div style="display: flex; align-items: center;">
       <span style="color: white; margin-right: 2em; font-size: 1.2em; font-weight: bold;">{{credit}} credits</span>
-      <span style="color: white; cursor: pointer; margin-right: 2em; font-size: 1.2em; font-weight: bold; color: rgb(171, 25, 25);">Log out</span>
+      <span style="color: white; cursor: pointer; margin-right: 2em; font-size: 1.2em; font-weight: bold; color: rgb(171, 25, 25);" (click)="logOut()">Log out</span>
     </div>
+  </div>
+  <div style="margin-bottom: 2em;">
+    <span style="color: white; font-size: large; font-weight: bold;">We dont store any data. Make sure to save your videos after generation, otherwise it will be lost upon leaving/refreshing the page</span>
   </div>
   <div class="upload-area">
     <div>

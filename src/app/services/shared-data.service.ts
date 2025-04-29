@@ -70,7 +70,7 @@ export class LocalstorageService {
 
 
   public removeEverything(){
-    localStorage.removeItem(this.username);
+    localStorage.removeItem(this.email);
     localStorage.removeItem(this.bearer);
     localStorage.removeItem(this.refresh);
     localStorage.removeItem(this.password);

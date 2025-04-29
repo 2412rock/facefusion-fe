@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CredentialsHttpInterceptor } from '../../interceptor/http-interceptor';
 import { UrlService } from '../../services/url.service';
 import { CreditService } from '../../services/credit.service';
 import { firstValueFrom } from 'rxjs';
+import { LocalstorageService } from '../../services/shared-data.service';
 
 @Component({
   selector: 'app-swap',
@@ -30,7 +31,7 @@ export class SwapComponent implements OnInit {
   sourceImagePreview: string | null = null;  // Preview URL for the source image
   targetVideoPreview: string | null = null;  // Preview URL for the target video
 
-  constructor(private http: HttpClient, private url: UrlService, private creditService: CreditService) { }
+  constructor(private http: HttpClient, private url: UrlService, private creditService: CreditService, private router: Router, private localStorage: LocalstorageService) { }
 
   async ngOnInit() {
     firstValueFrom(this.creditService.getCredit()).then(e => {
@@ -125,9 +126,8 @@ export class SwapComponent implements OnInit {
     });
   }
 
-  deleteSourceImage(){}
-
-  deleteTargetVideo(){
-    
+  logOut(){
+    this.localStorage.removeEverything();
+    this.router.navigate(['login'])
   }
 }

@@ -27,7 +27,7 @@ export class AppComponent {
   }
 
   ngOnInit(){
-    if(this.localStorage.getEmail() != null){
+    if(this.localStorage.getEmail()){
       this.router.navigate(['./swap'])
     }
     else{
