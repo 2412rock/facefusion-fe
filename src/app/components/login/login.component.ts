@@ -37,7 +37,7 @@ export class LoginComponent {
           this.isRegistering = false;
         }
         else{
-
+          alert(e.exceptionMessage)
         }
         this.loading = false;
       }).catch(e => {this.loading = false;})
