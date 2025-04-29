@@ -84,7 +84,10 @@ export class CredentialsHttpInterceptor implements HttpInterceptor {
                 });
                 return next.handle(modifiedRequest);
               } else {
+                this.localStorageService.removeEverything();
                 this.router.navigate(['./login']);
+                alert("Something went wrong. PLease login again");
+                
                 return throwError('Sign-in failed ' + signInResponse.exceptionMessage);
               }
             }),

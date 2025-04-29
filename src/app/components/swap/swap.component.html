@@ -4,7 +4,7 @@
     <span style="font-size: 2.5em; color: white; font-weight: bold;">Face fusion</span>
   </div>
   <div>
-    <span style="color: white; margin-right: 2em;">60 credits</span>
+    <span style="color: white; margin-right: 2em;">{{credit}} credits</span>
     <span style="color: white; cursor: pointer; margin-right: 2em;">Log out</span>
   </div>
 </div>
@@ -37,7 +37,8 @@
     </div>
   
     <div *ngIf="loading" class="progress-section">
-      <div *ngIf="uploadProgress < 100" class="progress-text">Uploading... {{ uploadProgress }}%</div>
+      <h2>HELLO</h2>
+      <div *ngIf="uploadProgress < 100" class="progress-text" style="color: white;">Uploading... {{ uploadProgress }}%</div>
       <mat-progress-spinner mode="indeterminate" diameter="60" color="primary">
       </mat-progress-spinner>
     </div>

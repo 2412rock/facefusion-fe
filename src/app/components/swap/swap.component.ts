@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, HttpEventType } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CredentialsHttpInterceptor } from '../../interceptor/http-interceptor';
 import { UrlService } from '../../services/url.service';
+import { CreditService } from '../../services/credit.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-swap',
@@ -15,18 +17,31 @@ import { UrlService } from '../../services/url.service';
   styleUrl: './swap.component.scss',
 
 })
-export class SwapComponent {
+export class SwapComponent implements OnInit {
   sourceImage: File | null = null;
   targetVideo: File | null = null;
   outputVideoUrl: string | null = null;
   loading = false;
   uploadProgress = 0;
   processingProgress = 0;  // For processing the video after upload
+  credit: number;
+  creditsToBeUsed: number;
 
   sourceImagePreview: string | null = null;  // Preview URL for the source image
   targetVideoPreview: string | null = null;  // Preview URL for the target video
 
-  constructor(private http: HttpClient, private url: UrlService) {}
+  constructor(private http: HttpClient, private url: UrlService, private creditService: CreditService) { }
+
+  async ngOnInit() {
+    firstValueFrom(this.creditService.getCredit()).then(e => {
+      if (e.isSuccess) {
+        this.credit = e.data;
+      }
+      else {
+        alert("Could not get credit")
+      }
+    }).catch(e => alert("Could not get credit"))
+  }
 
   onSourceImageSelected(event: any) {
     this.sourceImage = event.target.files[0];
@@ -41,14 +56,33 @@ export class SwapComponent {
 
   onTargetVideoSelected(event: any) {
     this.targetVideo = event.target.files[0];
+
     if (this.targetVideo) {
       this.targetVideoPreview = URL.createObjectURL(this.targetVideo);  // Create video URL for preview
+
+      // Create a video element to load the file and extract duration
+      const videoElement = document.createElement('video');
+      videoElement.preload = 'metadata';
+      videoElement.src = this.targetVideoPreview;
+
+      videoElement.onloadedmetadata = () => {
+        const durationInSeconds = videoElement.duration;
+        console.log(`Video duration: ${durationInSeconds} seconds`);
+        this.creditsToBeUsed = Math.round(durationInSeconds);
+        // Optionally store the duration in a class property
+        // this.videoDuration = durationInSeconds;
+      };
     }
   }
 
   submit() {
     if (!this.sourceImage || !this.targetVideo) {
       alert('Please select both a source image and a target video.');
+      return;
+    }
+
+    const confirmed = confirm(`This will use ${this.creditsToBeUsed} credits. Proceed?`);
+    if (!confirmed) {
       return;
     }
 
@@ -83,8 +117,9 @@ export class SwapComponent {
         }
       },
       error: (error) => {
+        console.log("ERROR UPLOADING")
         console.error('Error uploading:', error);
-        alert('Face swap failed.');
+        alert('Face swap failed. Make sure you have sufficient credits and try again');
         this.loading = false;
       }
     });
