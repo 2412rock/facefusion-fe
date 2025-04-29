@@ -124,4 +124,10 @@ export class SwapComponent implements OnInit {
       }
     });
   }
+
+  deleteSourceImage(){}
+
+  deleteTargetVideo(){
+    
+  }
 }

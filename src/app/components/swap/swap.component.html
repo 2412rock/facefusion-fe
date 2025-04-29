@@ -1,50 +1,74 @@
 <div class="container">
-<div style="width: 100%; background-color: #1f1e24; height: 60px; margin-bottom: 60px; display: flex; justify-content: space-between; align-items: center;">
-  <div>
-    <span style="font-size: 2.5em; color: white; font-weight: bold; margin-left: 0.5em;">Face fusion</span>
+  <div
+    style="width: 100%; background-color: #1f1e24; height: 60px; margin-bottom: 60px; display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      <span style="font-size: 2.5em; color: white; font-weight: bold; margin-left: 0.5em;">FaceSwapper</span>
+    </div>
+    <div style="display: flex; align-items: center;">
+      <span style="color: white; margin-right: 2em; font-size: 1.2em; font-weight: bold;">{{credit}} credits</span>
+      <span style="color: white; cursor: pointer; margin-right: 2em; font-size: 1.2em; font-weight: bold; color: rgb(171, 25, 25);">Log out</span>
+    </div>
   </div>
-  <div style="display: flex; align-items: center;">
-    <span style="color: white; margin-right: 2em; font-size: 1.2em;">{{credit}} credits</span>
-    <span style="color: white; cursor: pointer; margin-right: 2em; font-size: 1.2em;">Log out</span>
-  </div>
-</div>
-    <div class="upload-area">
-      <div class="upload-block">
-        <label class="upload-label">
-          <span>Select Source Image</span>
+  <div class="upload-area">
+    <div>
+      <label class="upload-block" style="cursor: pointer;">
+        <div>
+          <i *ngIf="!sourceImagePreview" class="fa-solid fa-person" style="font-size: 3em; color: white; "></i>
           <input type="file" accept="image/*" (change)="onSourceImageSelected($event)" hidden />
-        </label>
+        </div>
+        
         <div *ngIf="sourceImagePreview" class="preview">
           <img [src]="sourceImagePreview" alt="Source Image Preview" />
         </div>
+        
+      </label>
+      <div style="margin-top: 1em; font-weight: bold;">
+        <span style="color: white; font-size: large;">Select face image</span>
       </div>
-  
-      <div class="upload-block">
-        <label class="upload-label">
-          <span>Select Target Video</span>
+    </div>
+
+    <div>
+      <label class="upload-block" style="cursor: pointer;">
+        <div>
+          <i *ngIf="!targetVideoPreview" class="fa-solid fa-video" style="font-size: 3em; color: white; "></i>
           <input type="file" accept="video/*" (change)="onTargetVideoSelected($event)" hidden />
-        </label>
+        </div>
         <div *ngIf="targetVideoPreview" class="preview">
           <video controls [src]="targetVideoPreview"></video>
         </div>
+  
+      </label>
+      <div style="margin-top: 1em; font-weight: bold;">
+        <span style="color: white; font-size: large;">Select target video</span>
       </div>
     </div>
-  
-    <div class="button-section">
-      <button (click)="submit()" [disabled]="loading">
-        {{ loading ? 'Processing...' : 'Swap Face' }}
-      </button>
-    </div>
-  
-    <div *ngIf="loading" class="progress-section">
-      <h2>HELLO</h2>
-      <div *ngIf="uploadProgress < 100" class="progress-text" style="color: white;">Uploading... {{ uploadProgress }}%</div>
-      <mat-progress-spinner mode="indeterminate" diameter="60" color="primary">
-      </mat-progress-spinner>
-    </div>
-  
-    <div *ngIf="outputVideoUrl" class="result-section">
-      <h2 class="subtitle">Result</h2>
-      <video class="output-video" controls [src]="outputVideoUrl"></video>
-    </div>
+
+    <!-- <div class="upload-block">
+      <label class="upload-label">
+        <span>Select Target Video</span>
+        <input type="file" accept="video/*" (change)="onTargetVideoSelected($event)" hidden />
+      </label>
+      <div *ngIf="targetVideoPreview" class="preview">
+        <video controls [src]="targetVideoPreview"></video>
+      </div>
+    </div> -->
   </div>
+
+  <div class="button-section">
+    <button (click)="submit()" [disabled]="loading">
+      {{ loading ? 'Processing...' : 'Swap Face' }}
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="progress-section">
+    <div *ngIf="uploadProgress < 100" class="progress-text" style="color: white;">Uploading... {{ uploadProgress }}%
+    </div>
+    <mat-progress-spinner mode="indeterminate" diameter="60" color="primary">
+    </mat-progress-spinner>
+  </div>
+
+  <div *ngIf="outputVideoUrl" class="result-section">
+    <h2 class="subtitle">Result</h2>
+    <video class="output-video" controls [src]="outputVideoUrl"></video>
+  </div>
+</div>
