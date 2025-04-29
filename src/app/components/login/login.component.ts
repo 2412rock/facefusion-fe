@@ -44,6 +44,7 @@ export class LoginComponent {
   }
 
   async login() {
+    this.loading = true;
       var req = new SignInRequest();
       req.email = this.email;
       req.password = this.password;
@@ -60,9 +61,10 @@ export class LoginComponent {
           this.router.navigate(['./swap'])
         }
         else {
-
+          alert("Invalid email/password")
         }
-      }).catch(e => { console.log("Exception occured at signin" + e); })
+        this.loading = false;
+      }).catch(e => { console.log("Exception occured at signin" + e); this.loading = false;})
     
   }
 
